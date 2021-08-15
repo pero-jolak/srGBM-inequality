@@ -52,7 +52,7 @@ data__ = data[data['year']==1977].avg_income
 hist = np.histogram(data__)
 hist_dist = st.rv_histogram(hist)
 
-x = hist_dist.rvs(size=10000)
+x = hist_dist.rvs(size=100)
 data_ = x
 data_.sort()
 
@@ -64,11 +64,11 @@ def neg_log_lik(theta):
 
   r = 0.00626144443706745
   mu = theta[0]
-  ssq = theta[1]
+  ssq = 0.16**2
   
   alpha = (-(mu-ssq/2)+np.sqrt((mu-ssq/2)**2+2*r*ssq))/ssq
 
-  x0 = 24941.059699
+  x0 = np.exp(np.mean(np.log(data_)))
   
   for i in range(len(data_)):
       if data_[i]>x0:
@@ -77,49 +77,13 @@ def neg_log_lik(theta):
           lik.append(((r*ssq)/(alpha*ssq+(mu-ssq/2))) * (data_[i]/x0)**(alpha+2*(mu-ssq/2)-1))
   
   return -sum(np.log(lik))
+#%%
 
-#%% MLE: The initial $x_0$ is the median of the income distribution
+theta_start = np.array([0.015])
+res = minimize(neg_log_lik, theta_start, method = 'Nelder-Mead', 
+	       options={'disp': True,'maxiter':100000})
 
-
-data = pd.read_excel('perc_data.xlsx')
-data = data[data['year'].isin(list(range(1966,2015)))]
-
-indices = list(data[data['avg_income_ppp_dollars']==0].index)
-
-data.loc[indices,'avg_income_ppp_dollars'] = 1
-
-data_= data[data['year']==1966]
-data_ = np.array(data_['avg_income_ppp_dollars'])
-X = np.linspace(0,np.max(data_))
-
-hist = np.histogram(data_)
-hist_dist = st.rv_histogram(hist)
-
-plt.hist(data_, density=True)
-plt.plot(X, hist_dist.pdf(X), label='PDF')
-#plt.plot(X, hist_dist.cdf(X), label='CDF')
-plt.show()
-
-rs = []
-
-
-for year in pd.unique(data.year):
-  data_= data[data['year']==year]
-  data_ = np.array(data_['avg_income_ppp_dollars'])
-  print(year)
-
-  #hist = np.histogram(data_)
-  #hist_dist = st.rv_histogram(hist)
-
-  #x = hist_dist.rvs(size=500)
-  #data_ = x
-
-  theta_start = np.array([0.01])
-  res = minimize(neg_log_lik, theta_start, method = 'Nelder-Mead', 
-	      options={'disp': True,'maxiter':10000})
-    
-  rs.append(res['x'][0])
-                          
+print(res)          
 #%% Estimate the standard deviation in each year (you can use this as an estimate for sigma)
 
 from sklearn import preprocessing
