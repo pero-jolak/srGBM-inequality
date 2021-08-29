@@ -191,12 +191,12 @@ for iteration in range(iterations):
     
     random.seed(10)
     t = len(data_sh001)
-    people = 50000
+    people = 10000
     dt = 1
     m = 50
     #sigma = np.sqrt(0.02219277)
     #sigma = 0.2
-    trajs = np.ones([m, m, t+1, people],dtype='uint8')
+    trajs = np.ones([m, m, t+1, people])
     
     for real in range(0,t-1,1):
       print(real)
@@ -211,7 +211,7 @@ for iteration in range(iterations):
         sigmas = np.linspace(np.sqrt(0.02219277),np.sqrt(0.02219277),m)
       else:   
         mus = np.linspace(0.001,0.15,m)
-        sigmas = np.linspace(0.10,0.70,m)
+        sigmas = np.linspace(0.20,0.70,m)
       lista = {}
       
       for muiter, mu in enumerate(mus):
