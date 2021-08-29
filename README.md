@@ -6,4 +6,4 @@ This repository includes data and Python code for reproducing the empirical resu
 * rs.xlsx - data used for the approximation of the resetting rate
 * data_share.xlsx - data for the top 1% earners in USA
 * data_share10.xlsx - data for the top 10% earners in USA
-* perc_data.xslx - data for each percentile of the income distribution (used to simulate the initial N trajectories in 1977)
+* perc_data.xslx - data for each percentile of the income distribution (used to fit t=0 parameters and simulate the initial N trajectories in 1977... this data, in full extent, can be used to fit an alternative economic measure, e.g. geometric mean income)
