@@ -1,6 +1,6 @@
 # srGBM-inequality
 
-This repository includes data and Python code for reproducing the empirical results in the paper: "Income Inequality and Mobility in geometric Brownian motion with stochastic resetting: Theoretical Results and Empirical Evidence of non-ergodicity":
+This repository includes data and Python code for reproducing the empirical results in the paper: "Income Inequality and Mobility in geometric Brownian motion with stochastic resetting: Theoretical Results and Empirical Evidence of non-ergodicity", available at https://arxiv.org/pdf/2109.01822.pdf:
 
 * Code/srGBM.py - this file contains the code for the empirical analysis conducted in the paper.
 * Data/rs.xlsx - data used for the approximation of the resetting rate
